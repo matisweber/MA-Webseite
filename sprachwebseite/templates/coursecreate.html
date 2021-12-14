@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course creation</title>
+</head>
+<body>
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+<div class="container">
+<h1>Create your own course!</h1> 
+<form method="POST" action="{% url 'coursecreate' %}"> 
+{% csrf_token %}
+    <form>
+        <div class="form-group">
+            <label>Course name</label>
+            <input type="text" class="form-control" name="name" placeholder="Course name" Required>
+        </div>
+
+        <div class="form-group">
+            <label>Your name</label>
+            <input type="text" class="form-control" name="teacher" placeholder="Your name" Required> 
+          </div>
+
+        <div class="form-group">
+            <label>Your Email adress</label>
+            <input type="text" class="form-control" name="email" placeholder="Email adress" Required> 
+        </div>
+
+        <div class="form-group">
+          <label>Language</label>
+          <select class="form-control" name="language" Required>
+            <option></option>
+            <option>German</option>
+            <option>French</option>
+            <option>Italian</option>
+            <option>English</option>
+            <option>Spanish</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+            <label>Course level</label>
+            <select class="form-control" name="languagelvl" Required>
+                <option></option>
+                <option>A1</option>
+                <option>A2</option>
+                <option>B1</option>
+                <option>B2</option>
+                <option>C1</option>
+                <option>C2</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Course type</label>
+            <select class="form-control" name="coursetype" Required>
+              <option>Private lessons</option>
+              <option>Group lessons</option>
+            </select>
+          </div>
+          
+        <div class="form-group">
+          <label>Description</label>
+          <textarea class="form-control" name="info" rows="3" placeholder="Short description about your course" Required></textarea>
+        </div> <br>
+
+        <button type="submit" class="btn btn-secondary">Create</button>
+      </form>
+</div>
+{% else %}
+<h1>Sorry! You must be logged in to access this page.</h1>
+<a class="nav-link" href="{% url 'login' %}">Login</a>
+<a class="nav-link" href="{% url 'register_user' %}">SignUp</a>
+{% endif %}
+{% endblock %}
+</body>
+</html>
+

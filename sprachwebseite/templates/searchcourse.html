@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+<div class="container">
+    {% if searched %}
+        <h1>You searched for {{ searched }}</h1>
+        <br>
+        {% for course in courses %}
+        <div class="card">
+            <div class="card-header">
+            </div>
+            <div class="card-body">
+                
+                    <a href="{% url 'showcourse' course.id %}"><h5>{{ course.name }}</h5></a><br>
+                        
+                    <p>{{ course.teacher }}</p>
+                    <p>Email adress of the teacher:
+                        {{ course.email}} </p>
+                    <p>Language:
+                        {{ course.language }} </p>
+                    <p>Language lvl:
+                        {{ course.languagelvl }} </p>
+            </div>
+          </div><br><br>
+        {% endfor %}
+    {% else %}
+        <h1>No search input.</h1>
+    {% endif %}
+{% else %}
+<h1>Sorry! You must be logged in to access this page :(.</h1>
+<a class="nav-link" href="{% url 'login' %}">Login</a>
+<a class="nav-link" href="{% url 'register_user' %}">SignUp</a>
+{% endif %}
+</div>
+{% endblock %}
